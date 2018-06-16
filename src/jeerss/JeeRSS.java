@@ -5,6 +5,9 @@
  */
 package jeerss;
 
+import ui.SessionDispatch;
+import ui.Window;
+
 /**
  *
  * @author ian
@@ -18,6 +21,8 @@ public class JeeRSS
     public static void main(String[] args)
     {
         Session session = new Session();
+        Thread thread = new Thread(new SessionDispatch(Session.shared));
+        thread.start();
+        javafx.application.Application.launch(Window.class);
     }
-    
 }

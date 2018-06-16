@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+
+#menu
+{
+     -fx-background-color: #2F2F2F;
+}
+
+#content
+{
+    -fx-background-color: #D6D6D6;
+}
+#menuhead
+{
+    -fx-font-color: #D6D6D6;
+}

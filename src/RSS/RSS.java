@@ -24,7 +24,7 @@ public class RSS extends Crawler
     public String title;
     public String url;
     Document page;
-    LinkedList<Story> feed;
+    public LinkedList<Story> feed;
     
     public RSS(String url) throws IOException
     {
@@ -32,11 +32,13 @@ public class RSS extends Crawler
         base = parseRSS(url);
         page = Jsoup.parse(base, "", Parser.xmlParser());
         setTitle();
+        System.out.println("Fetched " + title);
         Elements stories = getStories();
         //System.out.println(base); //view xml
         //System.out.println(stories.size()); //num stories
         Story current;
         feed = new LinkedList<>();
+        System.out.println("Processing " + title);
         for(Element story : stories)
         {
             current = new Story();
@@ -49,6 +51,7 @@ public class RSS extends Crawler
             System.out.println(current);
             System.out.println("------------------------------------------------");
         }
+        System.out.println("Completed fetch: " + title);
         //System.out.println(title);
     }
     

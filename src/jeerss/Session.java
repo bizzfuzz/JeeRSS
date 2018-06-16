@@ -9,6 +9,8 @@ import RSS.RSS;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import ui.FXMLController;
 
 /**
  *
@@ -16,17 +18,34 @@ import java.util.logging.Logger;
  */
 public class Session
 {
+    public static Session shared;
     
     public Session()
+    {
+        shared = this;
+    }
+    
+    public void start()
     {
         try
         {
             String url = "https://www.gamingonlinux.com/article_rss.php";
             RSS rss = new RSS(url);
+            showfeed(rss);
         }
         catch (IOException ex)
         {
             Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static void showfeed(RSS feed)
+    {
+        FXMLController controller = FXMLController.shared;
+        Platform.runLater(() ->
+        {
+            controller.populateFeed(feed.feed);
+        } // ...
+        );
     }
 }
