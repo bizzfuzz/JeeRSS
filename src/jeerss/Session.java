@@ -29,7 +29,7 @@ public class Session
     {
         try
         {
-            String url = "https://www.gamingonlinux.com/article_rss.php";
+            String url = "https://www.wired.com/feed/rss";
             RSS rss = new RSS(url);
             showfeed(rss);
         }
