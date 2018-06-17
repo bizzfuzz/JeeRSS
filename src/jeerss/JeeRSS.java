@@ -7,7 +7,6 @@ package jeerss;
 
 import ui.SessionDispatch;
 import ui.UIDispatch;
-import ui.Window;
 
 /**
  *
