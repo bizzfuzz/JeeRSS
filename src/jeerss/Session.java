@@ -11,8 +11,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import rss.Story;
 import ui.FXMLController;
-import ui.Window;
 
 /**
  *
@@ -34,13 +34,11 @@ public class Session
     {
         try
         {
-            //mainController = Window.loader.getController();
-            System.out.println("\t\t\tin");
             feeds = new LinkedList<>();
             urls = new LinkedList<>();
             urls.add("https://www.gamingonlinux.com/article_rss.php");
-            urls.add("https://www.wired.com/feed/rss");
-            //urls.add("https://www.theguardian.com/uk/sport/rss");
+            //urls.add("https://www.wired.com/feed/rss");
+            urls.add("https://www.theguardian.com/uk/sport/rss");
             for(String url : urls)
                 feeds.add(new RSS(url));
             showfeeds();
@@ -66,5 +64,9 @@ public class Session
         {
             showfeed(feed);
         });
+    }
+    public Story getStory(int feed, int story)
+    {
+        return feeds.get(feed).getStory(story);
     }
 }

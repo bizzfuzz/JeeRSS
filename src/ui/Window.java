@@ -33,7 +33,7 @@ public class Window extends Application
         controller = new FXMLController();
         loader.setController(controller);
         Parent root = loader.load();
-        System.out.println("Controller: " + controller);
+        //System.out.println("Controller: " + controller);
         primaryStage.setTitle("JeeRSS");
         Scene scene = new Scene(root, 800, 700);
         scene.getStylesheets().add(
@@ -42,7 +42,7 @@ public class Window extends Application
         primaryStage.setScene(scene);
         primaryStage.setOnShowing((WindowEvent event) ->
         {
-            System.out.println("Controller: " + controller);
+            //System.out.println("Controller: " + controller);
             Session.shared.mainController = controller;
             Session.shared.showfeeds();
         });

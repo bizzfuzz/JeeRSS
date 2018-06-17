@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import rss.RSS;
 
@@ -29,6 +30,10 @@ public class FXMLController implements Initializable
     VBox menuitems;
     @FXML
     ScrollPane menuscroll;
+    @FXML
+    VBox article;
+    @FXML
+    Label title;
     /**
      * Initializes the controller class.
      * @param url
@@ -42,17 +47,32 @@ public class FXMLController implements Initializable
     }
     public void populateFeed(RSS rss)
     {
-        Button button;
+        StoryButton button;
         ObservableList<Node> menu = menuitems.getChildren();
-        Label title = new Label(rss.title);
-        title.getStyleClass().add("lighttext");
-        menu.add(title);
-        for(Story story : rss.feed)
+        Label feedtitle = new Label(rss.title);
+        feedtitle.getStyleClass().add("lighttext");
+        menu.add(feedtitle);
+        Story story;
+        for(int i = 0; i < rss.feed.size(); i++)
         {
-            button = new Button();
-            button.setText(story.title);
+            story = rss.getStory(i);
+            button = new StoryButton(story, this);
             menu.add(button);
         }
         //System.out.println(menuitems.getChildren().size());
+    }
+    public void showStory(Story story)
+    {
+        title.setText(story.title);
+        ObservableList<Node> articleSegments = article.getChildren();
+        articleSegments.clear();
+        if(story.image != null)
+        {
+            System.out.println(story.title + " adding image " + story.image);
+            ImageView iv = new ImageView(story.image);
+            iv.setFitHeight(400);
+            iv.setPreserveRatio(true);
+            articleSegments.add(iv);
+        }
     }
 }

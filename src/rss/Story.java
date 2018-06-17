@@ -5,6 +5,8 @@
  */
 package rss;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author ian
@@ -15,6 +17,7 @@ public class Story
     public String url;
     public String content;
     public String date;
+    public Image image;
     
     @Override
     public String toString()

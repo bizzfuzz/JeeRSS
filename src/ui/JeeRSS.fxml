@@ -72,7 +72,23 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Pane fx:id="content" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ScrollPane fx:id="content" fitToHeight="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <AnchorPane fx:id="menu1">
+                     <children>
+                        <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Title" textAlignment="CENTER" textFill="#d6d6d6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <VBox fx:id="article" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
       </children>
     </AnchorPane>
   </children>

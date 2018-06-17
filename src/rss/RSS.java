@@ -7,6 +7,7 @@ package rss;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import javafx.scene.image.Image;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -46,6 +47,7 @@ public class RSS extends Crawler
             current.content = getDescription(story);
             current.url = getLink(story);
             current.date = getDate(story);
+            current.image = getImage(story);
             feed.add(current);
             
             //System.out.println(current);
@@ -55,7 +57,7 @@ public class RSS extends Crawler
         //System.out.println(title);
     }
     
-    private String parseRSS(String url) throws IOException
+    private String parseRSS(String url) throws IOException//get xml from page
     {
         return Parser.unescapeEntities( getPage(url).toString(), false);
     }
@@ -88,5 +90,44 @@ public class RSS extends Crawler
                 return field.text();
         }
         return "";
+    }
+    private Image getImage(Element story)
+    {
+        Element imgTag = story.select("img").first();
+        String imageUrl = "";
+        if(imgTag == null)
+        {
+            for(Element el : story.getAllElements())
+            {
+                if(el.nodeName().toLowerCase().contains("media:content"))
+                {
+                    imageUrl = el.attr("url");
+                    if(!emptyString(imageUrl))
+                        break;
+                }
+                if(emptyString(imageUrl) && el.nodeName().toLowerCase().contains("media:thumbnail"))
+                {
+                    imageUrl = el.attr("url");
+                    if(!emptyString(imageUrl))
+                        break;
+                }
+            }
+        }
+        else
+        {
+            imageUrl = imgTag.attr("src");
+        }
+        if(emptyString(imageUrl))
+            return null;
+        System.out.println("image: " + imageUrl);
+        return new Image(imageUrl);
+    }
+    public Story getStory(int id)
+    {
+        return feed.get(id);
+    }
+    boolean emptyString(String str)
+    {
+        return str == null || str.isEmpty();
     }
 }
