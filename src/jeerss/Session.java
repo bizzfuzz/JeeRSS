@@ -5,12 +5,14 @@
  */
 package jeerss;
 
-import RSS.RSS;
+import rss.RSS;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import ui.FXMLController;
+import ui.Window;
 
 /**
  *
@@ -19,6 +21,9 @@ import ui.FXMLController;
 public class Session
 {
     public static Session shared;
+    LinkedList<String> urls;
+    LinkedList<RSS> feeds;
+    public FXMLController mainController;
     
     public Session()
     {
@@ -29,9 +34,16 @@ public class Session
     {
         try
         {
-            String url = "https://www.wired.com/feed/rss";
-            RSS rss = new RSS(url);
-            showfeed(rss);
+            //mainController = Window.loader.getController();
+            System.out.println("\t\t\tin");
+            feeds = new LinkedList<>();
+            urls = new LinkedList<>();
+            urls.add("https://www.gamingonlinux.com/article_rss.php");
+            urls.add("https://www.wired.com/feed/rss");
+            //urls.add("https://www.theguardian.com/uk/sport/rss");
+            for(String url : urls)
+                feeds.add(new RSS(url));
+            showfeeds();
         }
         catch (IOException ex)
         {
@@ -39,13 +51,20 @@ public class Session
         }
     }
     
-    public static void showfeed(RSS feed)
+    public void showfeed(RSS rss)
     {
-        FXMLController controller = FXMLController.shared;
         Platform.runLater(() ->
         {
-            controller.populateFeed(feed.feed);
-        } // ...
-        );
+            System.out.println(mainController);
+            mainController.populateFeed(rss);
+        });
+    }
+    public void showfeeds()
+    {
+        System.out.println("feed:" + feeds);
+        feeds.forEach((feed) ->
+        {
+            showfeed(feed);
+        });
     }
 }

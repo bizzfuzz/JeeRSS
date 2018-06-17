@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RSS;
+package rss;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -32,13 +32,13 @@ public class RSS extends Crawler
         base = parseRSS(url);
         page = Jsoup.parse(base, "", Parser.xmlParser());
         setTitle();
-        System.out.println("Fetched " + title);
+        System.out.println("> Fetched " + title);
         Elements stories = getStories();
         //System.out.println(base); //view xml
         //System.out.println(stories.size()); //num stories
         Story current;
         feed = new LinkedList<>();
-        System.out.println("Processing " + title);
+        System.out.println("> Processing " + title);
         for(Element story : stories)
         {
             current = new Story();
@@ -48,10 +48,10 @@ public class RSS extends Crawler
             current.date = getDate(story);
             feed.add(current);
             
-            System.out.println(current);
-            System.out.println("------------------------------------------------");
+            //System.out.println(current);
+            //System.out.println("------------------------------------------------");
         }
-        System.out.println("Completed fetch: " + title);
+        System.out.println("> Completed fetch: " + title);
         //System.out.println(title);
     }
     

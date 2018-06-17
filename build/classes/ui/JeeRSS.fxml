@@ -9,11 +9,11 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="700.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.FXMLController">
+<VBox prefWidth="800.0" stylesheets="@../JeeRSS/src/ui/fxml.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
      <stylesheets>
         <URL value="@fxml.css"/>
     </stylesheets>
-  <children>
+    <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -55,20 +55,24 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Pane fx:id="menu" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="200.0" text="Feeds" textAlignment="CENTER" textFill="#d6d6d6">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <VBox fx:id="menuitems" layoutY="61.0" prefHeight="612.0" prefWidth="200.0" />
-               </children>
-            </Pane>
-            <Pane fx:id="content" layoutX="10.0" layoutY="10.0" prefWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
+            <ScrollPane fx:id="menuscroll" fitToHeight="true" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                <AnchorPane fx:id="menu">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="200.0" text="Feeds" textAlignment="CENTER" textFill="#d6d6d6">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <VBox fx:id="menuitems" prefHeight="612.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+            <Pane fx:id="content" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       </children>
     </AnchorPane>
   </children>
