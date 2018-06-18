@@ -18,8 +18,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontSmoothingType;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import rss.RSS;
@@ -58,6 +58,8 @@ public class FXMLController implements Initializable
         title.setWrapText(true);
         article.setPadding(new Insets(10, 0,0,0));
         engine = view.getEngine();
+        view.setContextMenuEnabled(false);
+        view.setFontSmoothingType(FontSmoothingType.GRAY);
     }
     public void populateFeed(RSS rss)
     {
@@ -75,10 +77,12 @@ public class FXMLController implements Initializable
         }
         //System.out.println(menuitems.getChildren().size());
     }
-    public void showStory(Story story) throws IOException
+    public void showStory(Story story) throws IOException, InterruptedException
     {
         title.setText(story.title);
-        engine.loadContent(story.getArticle(), "text/html");
-        
+        String articletext = story.getArticle();
+        System.out.println(articletext);
+        engine.loadContent(articletext, "text/html");
+        engine.setUserStyleSheetLocation(getClass().getResource("assets/article.css").toString());
     }
 }

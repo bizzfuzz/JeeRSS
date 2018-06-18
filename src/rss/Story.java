@@ -8,6 +8,8 @@ package rss;
 import java.io.IOException;
 import javafx.scene.image.Image;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import scrape.ArticleExtractor;
 import scrape.Crawler;
 
 /**
@@ -24,15 +26,28 @@ public class Story extends Crawler
     public String article;
     public Document page;
     
-    public String getArticle() throws IOException
+    public String getArticle() throws IOException, InterruptedException
     {
         System.out.println("Article: " + url);
         if(page == null)
         {
             page = getPage(url);
-            article = page.toString();
+            /*Element articletag = page.select("article").first();
+            if(articletag == null)
+                article = page.toString();
+            else
+            {
+                String temp = "<html><head><link type=\"text/css\" rel=\"stylesheet\" href=\"article.css\"></head><body>\n";
+                temp += articletag.text();
+                temp += "\n</body>";
+                article = temp;
+            }*/
+            ArticleExtractor ae = new ArticleExtractor(page);
+            ae.processPage();
+            ae.thread.join();
+            return ae.content;
         }
-        return article;
+        return "";
     }
     @Override
     public String toString()

@@ -119,7 +119,7 @@ public class RSS extends Crawler
         }
         if(emptyString(imageUrl))
             return null;
-        System.out.println("image: " + imageUrl);
+        //System.out.println("image: " + imageUrl);
         return new Image(imageUrl);
     }
     public Story getStory(int id)
