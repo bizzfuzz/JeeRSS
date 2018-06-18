@@ -5,20 +5,35 @@
  */
 package rss;
 
+import java.io.IOException;
 import javafx.scene.image.Image;
+import org.jsoup.nodes.Document;
+import scrape.Crawler;
 
 /**
  *
  * @author ian
  */
-public class Story
+public class Story extends Crawler
 {
     public String title;
     public String url;
     public String content;
     public String date;
     public Image image;
+    public String article;
+    public Document page;
     
+    public String getArticle() throws IOException
+    {
+        System.out.println("Article: " + url);
+        if(page == null)
+        {
+            page = getPage(url);
+            article = page.toString();
+        }
+        return article;
+    }
     @Override
     public String toString()
     {

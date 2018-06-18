@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.io.IOException;
 import rss.Story;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +20,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import rss.RSS;
 
 /**
@@ -36,6 +39,9 @@ public class FXMLController implements Initializable
     VBox article;
     @FXML
     Label title;
+    @FXML
+    WebView view;
+    WebEngine engine;
     /**
      * Initializes the controller class.
      * @param url
@@ -51,6 +57,7 @@ public class FXMLController implements Initializable
         title.setMaxHeight(100);
         title.setWrapText(true);
         article.setPadding(new Insets(10, 0,0,0));
+        engine = view.getEngine();
     }
     public void populateFeed(RSS rss)
     {
@@ -68,23 +75,10 @@ public class FXMLController implements Initializable
         }
         //System.out.println(menuitems.getChildren().size());
     }
-    public void showStory(Story story)
+    public void showStory(Story story) throws IOException
     {
         title.setText(story.title);
-        ObservableList<Node> articleSegments = article.getChildren();
-        articleSegments.clear();
-        if(story.image != null)
-        {
-            System.out.println(story.title + " adding image " + story.image);
-            ImageView iv = new ImageView(story.image);
-            iv.setFitHeight(400);
-            iv.setPreserveRatio(true);
-            articleSegments.add(iv);
-            Label desc = new Label("\n" + story.url + "\n\n" + story.content);
-            desc.setMaxWidth(article.getWidth());
-            desc.setMaxHeight(Double.MAX_VALUE);
-            desc.setWrapText(true);
-            articleSegments.add(desc);
-        }
+        engine.loadContent(story.getArticle(), "text/html");
+        
     }
 }

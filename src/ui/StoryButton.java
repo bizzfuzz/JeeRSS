@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import rss.Story;
 
@@ -24,7 +27,14 @@ public class StoryButton extends javafx.scene.control.Button
         setText(story.title);
         setOnAction((ActionEvent e) -> 
         {
-            controller.showStory(story);
+            try
+            {
+                controller.showStory(story);
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(StoryButton.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }

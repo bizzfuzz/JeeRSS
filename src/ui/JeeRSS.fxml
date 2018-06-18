@@ -8,12 +8,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 
 <VBox prefWidth="800.0" stylesheets="@../JeeRSS/src/ui/fxml.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
      <stylesheets>
         <URL value="@fxml.css"/>
     </stylesheets>
-    <children>
+     <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -72,7 +73,7 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <ScrollPane fx:id="content" fitToHeight="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="content" fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <AnchorPane fx:id="menu1" minWidth="595.0">
                      <children>
@@ -85,6 +86,7 @@
                            </padding>
                         </Label>
                         <VBox fx:id="article" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+                        <WebView fx:id="view" maxWidth="-1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
                      </children>
                   </AnchorPane>
                </content>

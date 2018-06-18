@@ -38,7 +38,7 @@ public class Session
             urls = new LinkedList<>();
             urls.add("https://www.gamingonlinux.com/article_rss.php");
             //urls.add("https://www.wired.com/feed/rss");
-            urls.add("https://www.theguardian.com/uk/sport/rss");
+            //urls.add("https://www.theguardian.com/uk/sport/rss");
             for(String url : urls)
                 feeds.add(new RSS(url));
             showfeeds();
