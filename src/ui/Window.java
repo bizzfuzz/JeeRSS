@@ -35,7 +35,7 @@ public class Window extends Application
         Parent root = loader.load();
         //System.out.println("Controller: " + controller);
         primaryStage.setTitle("JeeRSS");
-        Scene scene = new Scene(root, 800, 700);
+        Scene scene = new Scene(root, 900, 800);
         scene.getStylesheets().add(
             getClass().getResource("fxml.css").toExternalForm()
         );

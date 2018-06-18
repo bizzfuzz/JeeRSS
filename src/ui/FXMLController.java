@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -44,6 +46,11 @@ public class FXMLController implements Initializable
     {
         menuscroll.setHbarPolicy(ScrollBarPolicy.NEVER);
         menuscroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        title.setAlignment(Pos.CENTER_LEFT);
+        title.setMaxWidth(50);
+        title.setMaxHeight(100);
+        title.setWrapText(true);
+        article.setPadding(new Insets(10, 0,0,0));
     }
     public void populateFeed(RSS rss)
     {
@@ -73,6 +80,11 @@ public class FXMLController implements Initializable
             iv.setFitHeight(400);
             iv.setPreserveRatio(true);
             articleSegments.add(iv);
+            Label desc = new Label("\n" + story.url + "\n\n" + story.content);
+            desc.setMaxWidth(article.getWidth());
+            desc.setMaxHeight(Double.MAX_VALUE);
+            desc.setWrapText(true);
+            articleSegments.add(desc);
         }
     }
 }

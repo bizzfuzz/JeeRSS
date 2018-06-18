@@ -74,9 +74,9 @@
             </ScrollPane>
             <ScrollPane fx:id="content" fitToHeight="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <AnchorPane fx:id="menu1">
+                  <AnchorPane fx:id="menu1" minWidth="595.0">
                      <children>
-                        <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" text="Title" textAlignment="CENTER" textFill="#d6d6d6" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <Label fx:id="title" maxWidth="595.0" text="Title" textAlignment="LEFT" textFill="#d6d6d6" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -84,7 +84,7 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <VBox fx:id="article" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                        <VBox fx:id="article" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
                      </children>
                   </AnchorPane>
                </content>
