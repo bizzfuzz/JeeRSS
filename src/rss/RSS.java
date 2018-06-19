@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import scrape.Crawler;
+import scrape.Util;
 
 /**
  *
@@ -47,7 +48,7 @@ public class RSS extends Crawler
             current.content = getDescription(story);
             current.url = getLink(story);
             current.date = getDate(story);
-            current.image = getImage(story);
+            //current.image = getImage(story);
             feed.add(current);
             
             //System.out.println(current);
@@ -102,13 +103,13 @@ public class RSS extends Crawler
                 if(el.nodeName().toLowerCase().contains("media:content"))
                 {
                     imageUrl = el.attr("url");
-                    if(!emptyString(imageUrl))
+                    if(!Util.emptyString(imageUrl))
                         break;
                 }
-                if(emptyString(imageUrl) && el.nodeName().toLowerCase().contains("media:thumbnail"))
+                if(Util.emptyString(imageUrl) && el.nodeName().toLowerCase().contains("media:thumbnail"))
                 {
                     imageUrl = el.attr("url");
-                    if(!emptyString(imageUrl))
+                    if(!Util.emptyString(imageUrl))
                         break;
                 }
             }
@@ -117,17 +118,16 @@ public class RSS extends Crawler
         {
             imageUrl = imgTag.attr("src");
         }
-        if(emptyString(imageUrl))
+        if(Util.emptyString(imageUrl))
             return null;
         //System.out.println("image: " + imageUrl);
-        return new Image(imageUrl);
+        Image ret = new Image(imageUrl);
+        if(ret.isError())
+            System.out.println("img error: " + ret.exceptionProperty());
+        return ret;
     }
     public Story getStory(int id)
     {
         return feed.get(id);
-    }
-    boolean emptyString(String str)
-    {
-        return str == null || str.isEmpty();
     }
 }

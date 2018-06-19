@@ -8,15 +8,34 @@
 
 #menu
 {
-     -fx-background-color: #2F2F2F;
+     -fx-background-color: #F4F4F4;
      -fx-text-color: #D6D6D6;
 }
-
 #content
 {
     -fx-background-color: #D6D6D6;
 }
+#statusbar
+{
+    -fx-background-color: #F4F4F4;
+}
 .lighttext
 {
-    -fx-text-fill: #D6D6D6;
+    -fx-text-fill: #737373;
+}
+.storybutton
+{
+    -fx-background: none;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #C9C6C6;
+    -fx-alignment: center-left;
+}
+
+.storybutton:focused
+{
+    -fx-background-color: #00A973;
+}
+.storybutton:hover 
+{
+    -fx-background-color: #D6D6D6;
 }

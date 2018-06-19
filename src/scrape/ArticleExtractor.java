@@ -55,28 +55,56 @@ public class ArticleExtractor
     }
     public void extract()
     {
-        System.out.println(">\textracting");
+        boolean contentstarted = false;
+        //System.out.println(">\textracting");
         Element body = page.select("body").first();
         int threshold = 130;
         content = "<html><head><link type=\"text/css\" rel=\"stylesheet\" href=\"article.css\"></head><body>\n";
-        body.getAllElements().forEach((tag) ->
+        String[] skip = {
+            "facebook.", "google.", "twitter.", "patreon.", "share.", "google-plus.", "discord.", "youtube.",
+            "steam.", "telegram.", "search.", "rss."
+        };
+        for(Element tag : body.getAllElements())
         {
             if(tag.nodeName().equals("p"))
             {
-                String path = body.nodeName();
                 String tagtext = tag.text();
                 if(tagtext.length() > threshold)
                 {
-                    path += "/" + tag.nodeName();
-                    System.out.println("----------------------------");
-                    System.out.println(">Processing tag: " + path);
-                    System.out.println(tagtext);
-                    System.out.println(tagtext.length());
+                    if(!contentstarted)
+                        contentstarted = true;
                     content += "<p>" + tagtext + "</p>";
                 }
+                else
+                {
+                    //path += "/" + tag.nodeName();
+                    /*
+                    System.out.println("-------------passed---------------");
+                    System.out.println(">Processing tag: " + path);
+                    System.out.println(tagtext);
+                    System.out.println(tagtext.length());*/
+                }
             }
-        });
+            else if(contentstarted && tag.nodeName().equals("img"))//TODO: distinguish article pics from user coments and social media site pics
+            {
+                String tagrep = tag.toString();
+                //System.out.println(tagrep);
+                boolean toskip = false;
+                for(String ban : skip)
+                    if(tag.attr("src").contains(ban))
+                        toskip = true;
+                if(!toskip)
+                {
+                    //System.out.println(tagrep);
+                    content += "<br>" +  tagrep + "<br>";
+                }
+            }
+            else if(contentstarted && tag.nodeName().equals("ul"))
+            {
+                content += "<br>" + tag.toString() + "<br>";
+            }
+        }
         content += "</body></html>";
-        System.out.println("///////////////////////////////////////");
+        //System.out.println("///////////////////////////////////////");
     }
 }

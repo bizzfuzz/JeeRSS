@@ -31,7 +31,7 @@ public class StoryButton extends javafx.scene.control.Button
             {
                 controller.showStory(story);
             } 
-            catch (IOException ex)
+            catch (IOException | InterruptedException ex)
             {
                 Logger.getLogger(StoryButton.class.getName()).log(Level.SEVERE, null, ex);
             }

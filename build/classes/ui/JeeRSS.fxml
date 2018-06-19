@@ -14,7 +14,7 @@
      <stylesheets>
         <URL value="@fxml.css"/>
     </stylesheets>
-     <children>
+    <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -56,11 +56,11 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <ScrollPane fx:id="menuscroll" fitToHeight="true" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="menuscroll" fitToHeight="true" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
               <content>
                 <AnchorPane fx:id="menu">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="200.0" text="Feeds" textAlignment="CENTER" textFill="#d6d6d6">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="300.0" text="Feeds" textAlignment="CENTER" textFill="#d6d6d6">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
@@ -68,12 +68,12 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <VBox fx:id="menuitems" prefHeight="612.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                        <VBox fx:id="menuitems" prefHeight="612.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="50.0" />
                      </children>
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <ScrollPane fx:id="content" fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="content" fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <AnchorPane fx:id="menu1" minWidth="595.0">
                      <children>
@@ -86,7 +86,15 @@
                            </padding>
                         </Label>
                         <VBox fx:id="article" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-                        <WebView fx:id="view" maxWidth="-1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+                        <WebView fx:id="view" maxWidth="-1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+                        <Pane fx:id="statusbar" prefHeight="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label fx:id="status" text="Label">
+                                 <padding>
+                                    <Insets left="10.0" top="5.0" />
+                                 </padding></Label>
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
                </content>

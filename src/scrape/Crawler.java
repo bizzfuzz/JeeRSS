@@ -94,7 +94,7 @@ public class Crawler
     public Document getPage(String url) throws IOException
     {
         return Jsoup.connect(sanitize(url))
-            .userAgent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0")
+            .userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
             .timeout(10000)
             .get();
     }

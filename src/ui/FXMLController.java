@@ -9,6 +9,7 @@ import java.io.IOException;
 import rss.Story;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
@@ -66,6 +68,8 @@ public class FXMLController implements Initializable
         StoryButton button;
         ObservableList<Node> menu = menuitems.getChildren();
         Label feedtitle = new Label(rss.title);
+        feedtitle.setMinHeight(30);
+        feedtitle.setPadding(new Insets(0,0,0, 10));
         feedtitle.getStyleClass().add("lighttext");
         menu.add(feedtitle);
         Story story;
@@ -73,6 +77,8 @@ public class FXMLController implements Initializable
         {
             story = rss.getStory(i);
             button = new StoryButton(story, this);
+            button.getStyleClass().add("storybutton");
+            button.setMinWidth(menuscroll.getWidth());
             menu.add(button);
         }
         //System.out.println(menuitems.getChildren().size());
@@ -81,7 +87,7 @@ public class FXMLController implements Initializable
     {
         title.setText(story.title);
         String articletext = story.getArticle();
-        System.out.println(articletext);
+        //System.out.println(articletext);
         engine.loadContent(articletext, "text/html");
         engine.setUserStyleSheetLocation(getClass().getResource("assets/article.css").toString());
     }
