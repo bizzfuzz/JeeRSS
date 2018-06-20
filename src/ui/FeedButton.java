@@ -7,7 +7,6 @@ package ui;
 
 import java.util.LinkedList;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
@@ -32,25 +31,9 @@ public class FeedButton extends Button
         {
             Platform.runLater(() ->
             {
-                pressed();
+                switchState();
             });
         });
-    }
-    void pressed()
-    {
-        Task task = new Task<Void>() 
-        {
-            @Override
-            protected Void call() throws Exception 
-            {
-                switchState();
-                return null;
-            }
-        };
-        //task.setOnSucceeded(event -> System.out.println("task done"));
-        Thread thread = new Thread(task);
-        thread.setDaemon(true);
-        thread.start();
     }
     public void switchState()
     {
