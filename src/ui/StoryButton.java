@@ -20,11 +20,22 @@ public class StoryButton extends javafx.scene.control.Button
     public Story story;
     public FXMLController controller;
     
+    public StoryButton(StoryButton copy)
+    {
+        this.story = copy.story;
+        this.controller = copy.controller;
+        setText(copy.getText());
+        setAction();
+    }
     public StoryButton(Story story, FXMLController controller)
     {
         this.story = story;
         this.controller = controller;
         setText(story.title);
+        setAction();
+    }
+    private void setAction()
+    {
         setOnAction((ActionEvent e) -> 
         {
             try

@@ -5,30 +5,22 @@
  */
 package scrape;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author ian
  */
 public class Prefs
 {
-    public int minLength;
-    public int minRating;
-    public int nVids;
     public boolean linear;
     public String savedir,workdir;
-    public String[] sources;
+    public LinkedList<String> sources;
     
     public Prefs()
     {
         workdir= "/home/ian/dev/java/dl/";
-        savedir ="";
-        sources = new String[]{
-            "pornhub", "tube8","extremetube", "youporn", "spankwire",
-            "redtube", "keezmovies", "mofosex", "xtube"
-        };
-        minRating=0;
-        minLength=0;
-        linear=true;
-        nVids=1;
+        savedir = "";
+        sources = new LinkedList<>();
     }
 }

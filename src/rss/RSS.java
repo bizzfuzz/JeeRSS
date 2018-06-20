@@ -8,6 +8,7 @@ package rss;
 import java.io.IOException;
 import java.util.LinkedList;
 import javafx.scene.image.Image;
+import jeerss.Session;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,6 +28,12 @@ public class RSS extends Crawler
     public String url;
     Document page;
     public LinkedList<Story> feed;
+    public boolean savedstory = false;
+    
+    public RSS()
+    {
+        feed = new LinkedList<>();
+    }
     
     public RSS(String url) throws IOException
     {
@@ -34,6 +41,7 @@ public class RSS extends Crawler
         base = parseRSS(url);
         page = Jsoup.parse(base, "", Parser.xmlParser());
         setTitle();
+        Session.shared.showStatus("Fetching " + title);
         System.out.println("> Fetched " + title);
         Elements stories = getStories();
         //System.out.println(base); //view xml
@@ -54,6 +62,7 @@ public class RSS extends Crawler
             //System.out.println(current);
             //System.out.println("------------------------------------------------");
         }
+        Session.shared.showStatus("Completed fetch: " + title);
         System.out.println("> Completed fetch: " + title);
         //System.out.println(title);
     }
@@ -65,6 +74,14 @@ public class RSS extends Crawler
     private void setTitle()
     {
         title = page.select("title").first().text();
+    }
+    public void setTitle(String text)
+    {
+        title = text;
+    }
+    public void addStory(Story story)
+    {
+        feed.add(story);
     }
     private Elements getStories()
     {

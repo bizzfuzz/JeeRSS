@@ -24,6 +24,7 @@ public class Session
     LinkedList<String> urls;
     LinkedList<RSS> feeds;
     public FXMLController mainController;
+    RSS saved;
     
     public Session()
     {
@@ -42,6 +43,10 @@ public class Session
             //urls.add("https://stackoverflow.com/jobs/feed");
             for(String url : urls)
                 feeds.add(new RSS(url));
+            saved = new RSS();
+            saved.setTitle("Saved Stories");
+            saved.savedstory = true;
+            feeds.add(saved);
             showfeeds();
         }
         catch (IOException ex)
@@ -60,14 +65,29 @@ public class Session
     }
     public void showfeeds()
     {
-        System.out.println("feed:" + feeds);
-        feeds.forEach((feed) ->
+        showStatus("Fetching feeds");
+        Platform.runLater(() ->
         {
-            showfeed(feed);
+            feeds.forEach((feed) ->
+            {
+                showfeed(feed);
+            });
+            showStatus("Fetch complete");
         });
     }
     public Story getStory(int feed, int story)
     {
         return feeds.get(feed).getStory(story);
+    }
+    public void showStatus(String text)
+    {
+        Platform.runLater(() ->
+        {
+            mainController.setStatus(text);
+        });
+    }
+    public void saveStory(Story story)
+    {
+        saved.addStory(story);
     }
 }
