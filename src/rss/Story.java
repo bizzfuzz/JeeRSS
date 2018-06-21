@@ -6,10 +6,10 @@
 package rss;
 
 import java.io.IOException;
-import javafx.scene.image.Image;
 import org.jsoup.nodes.Document;
 import scrape.ArticleExtractor;
 import scrape.Crawler;
+import scrape.Util;
 import ui.StoryButton;
 
 /**
@@ -22,14 +22,26 @@ public class Story extends Crawler
     public String url;
     public String content;
     public String date;
-    public Image image;
     public String article;
     public Document page;
     public StoryButton button;
+    public boolean saved;
+    
+    public String saveString()
+    {
+        String ret = "<story>\n";
+        ret += "\t<title>" + title + "</title>\n"; 
+        ret += "\t<url>" + url + "</url>\n";
+        ret += "\t<content>" + content + "\n\t</content>\n";
+        ret += "\t<date>" + date + "</date>\n";
+        ret += "\t<article>" + title + "</article>\n";
+        ret += "</story>\n";
+        return ret;
+    }
     
     public String getArticle() throws IOException, InterruptedException
     {
-        if(article != null)
+        if(!Util.emptyString(article))
         {
             System.out.println("article size: " + article.length());
             return article;

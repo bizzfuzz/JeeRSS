@@ -5,13 +5,15 @@
         <group>
             <file>file:/home/ian/dev/java/JeeRSS/src/jeerss/Session.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/jeerss/JeeRSS.java</file>
+            <file>file:/home/ian/dev/java/JeeRSS/src/ui/TextPopup.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/ui/FXMLController.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/ui/JeeRSS.fxml</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/rss/RSS.java</file>
+            <file>file:/home/ian/dev/java/JeeRSS/src/scrape/ArticleExtractor.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/ui/Window.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/ui/FeedButton.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/rss/Story.java</file>
-            <file>file:/home/ian/dev/java/JeeRSS/src/scrape/Util.java</file>
+            <file>file:/home/ian/dev/java/JeeRSS/src/ui/SessionDispatch.java</file>
             <file>file:/home/ian/dev/java/JeeRSS/src/ui/StoryButton.java</file>
         </group>
     </open-files>

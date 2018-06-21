@@ -20,11 +20,11 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem mnemonicParsing="false" text="New Session" />
+            <MenuItem fx:id="addfeed" mnemonicParsing="false" text="Add Feed" />
             <MenuItem mnemonicParsing="false" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save Session" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem fx:id="savesession" mnemonicParsing="false" text="Save Session" />
             <MenuItem fx:id="savestory" mnemonicParsing="false" text="Save Story" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />

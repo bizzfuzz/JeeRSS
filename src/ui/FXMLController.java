@@ -5,10 +5,13 @@
  */
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import rss.Story;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +28,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import jeerss.Session;
 import rss.RSS;
+import scrape.Filer;
+import scrape.Util;
 
 /**
  * FXML Controller class
@@ -49,9 +56,14 @@ public class FXMLController implements Initializable
     Label status;
     @FXML
     MenuItem savestory;
+    @FXML
+    MenuItem addfeed;
+    @FXML
+    MenuItem savesession;
     WebEngine engine;
     Story viewing;
     FeedButton savedstories;
+    public Stage window;
     /**
      * Initializes the controller class.
      * @param url
@@ -76,10 +88,40 @@ public class FXMLController implements Initializable
         savestory.setOnAction((ActionEvent t) -> 
         {
             saveStory();
-        });      
+        });
+        addfeed.setOnAction((ActionEvent e) ->
+        {
+            try
+            {
+                TextPopup popup = new TextPopup("Add Feed");
+                String newurl = popup.display();
+                if(!Util.emptyString(newurl))
+                {
+                    Session.shared.addFeed(newurl);
+                    Session.shared.refreshfeeds();
+                }
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        savesession.setOnAction((ActionEvent e) ->
+        {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Save Session");
+            File file = chooser.showSaveDialog(window);
+            if(file != null)
+            {
+                Filer filer = new Filer();
+                filer.write(Session.shared.savestring(), file);
+            }
+        });
     }
     public void saveStory()
     {
+        if(viewing.saved)
+            return;
         if(viewing != null)
                 Session.shared.saveStory(viewing);
         if(savedstories != null)
@@ -90,6 +132,7 @@ public class FXMLController implements Initializable
                 savedstories.addStory(copy);
                 menuitems.getChildren().add(copy);
                 savedstories.showStories();
+                setStatus("Saved: " + viewing.title);
                 System.out.println("Saved len: " + savedstories.stories.size());
             });
         }
@@ -138,5 +181,9 @@ public class FXMLController implements Initializable
     public void setTitle(String text)
     {
         title.setText(text);
+    }
+    public void clearFeeds()
+    {
+        menuitems.getChildren().clear();
     }
 }

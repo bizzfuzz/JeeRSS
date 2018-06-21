@@ -23,11 +23,13 @@ public class Window extends Application
 {
     public static FXMLLoader loader;
     public static FXMLController controller;
+    Stage stage;
     
     @Override
     @FXML
     public void start(Stage primaryStage) throws IOException
     {
+        stage = primaryStage;
         loader = new FXMLLoader(getClass().getResource("JeeRSS.fxml"));
         loader.setLocation(getClass().getResource("JeeRSS.fxml"));
         controller = new FXMLController();
