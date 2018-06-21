@@ -6,6 +6,8 @@
 package ui;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,9 +46,17 @@ public class Window extends Application
         primaryStage.setScene(scene);
         primaryStage.setOnShowing((WindowEvent event) ->
         {
-            //System.out.println("Controller: " + controller);
-            Session.shared.mainController = controller;
-            Session.shared.showfeeds();
+            try
+            {
+                //System.out.println("Controller: " + controller);
+                Session.shared.fetchThread.join();
+                Session.shared.mainController = controller;
+                Session.shared.showfeeds();
+            } 
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         primaryStage.show();
     }

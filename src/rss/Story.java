@@ -34,7 +34,7 @@ public class Story extends Crawler
         ret += "\t<url>" + url + "</url>\n";
         ret += "\t<content>" + content + "\n\t</content>\n";
         ret += "\t<date>" + date + "</date>\n";
-        ret += "\t<article>" + title + "</article>\n";
+        ret += "\t<article>\n" + article + "\n</article>\n";
         ret += "</story>\n";
         return ret;
     }

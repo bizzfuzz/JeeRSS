@@ -21,25 +21,14 @@
           <items>
             <MenuItem mnemonicParsing="false" text="New Session" />
             <MenuItem fx:id="addfeed" mnemonicParsing="false" text="Add Feed" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="savesession" mnemonicParsing="false" text="Save Session" />
             <MenuItem fx:id="savestory" mnemonicParsing="false" text="Save Story" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

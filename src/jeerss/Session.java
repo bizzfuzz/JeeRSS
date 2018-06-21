@@ -5,6 +5,7 @@
  */
 package jeerss;
 
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import rss.RSS;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -15,6 +16,7 @@ import javafx.embed.swing.JFXPanel;
 import rss.Story;
 import scrape.Prefs;
 import ui.FXMLController;
+import ui.FetchDispatch;
 
 /**
  *
@@ -28,6 +30,7 @@ public class Session
     public FXMLController mainController;
     RSS saved;
     Prefs set;
+    public Thread fetchThread;
     
     public Session()
     {
@@ -37,25 +40,31 @@ public class Session
     public void start()
     {
         System.out.println("session start");
-        try
-        {
-            new JFXPanel();//workaround for toolkit not initialized
-            feeds = new LinkedList<>();
-            urls = new LinkedList<>();
-            //urls.add("https://www.gamingonlinux.com/article_rss.php");
-            //urls.add("https://www.wired.com/feed/rss");
-            //urls.add("https://www.theguardian.com/uk/sport/rss");
-            //urls.add("https://stackoverflow.com/jobs/feed");
-            for(String url : urls)
+        init();
+        //urls.add("https://www.gamingonlinux.com/article_rss.php");
+        //urls.add("https://www.wired.com/feed/rss");
+        //urls.add("https://www.theguardian.com/uk/sport/rss");
+        urls.add("https://stackoverflow.com/jobs/feed");
+        dispatchFetch();
+    }
+    private void init()
+    {
+        new JFXPanel();//workaround for toolkit not initialized
+        feeds = new LinkedList<>();
+        urls = new LinkedList<>();
+        saved = new RSS();
+        saved.setTitle("Saved Stories");
+        saved.savedstory = true;
+    }
+    public void dispatchFetch()
+    {
+        fetchThread = new Thread(new FetchDispatch(this));
+        fetchThread.start();
+    }
+    public void fetchFeeds() throws IOException
+    {
+        for(String url : urls)
                 addFeed(url);
-            saved = new RSS();
-            saved.setTitle("Saved Stories");
-            saved.savedstory = true;
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     public String savestring()
     {
@@ -71,13 +80,64 @@ public class Session
         ret += "</saved>";
         return ret;
     }
+    public void load(String savestring) throws IOException
+    {
+        init();
+        String[] split = savestring.split("</feeds>");
+        String links = split[0];
+        links = links.split("<feeds>")[1];
+        System.out.println("-------------------------");
+        for(String line : links.split("\n"))
+        {
+            line = line.trim();
+            if(!Util.isEmptyString(line))
+            {
+                System.out.println(line);//load rss's here
+                addFeed(line);
+            }
+        }
+        System.out.println("-----------/urls--------------");
+        String stories = split[1];
+        String delim = "</article>";
+        String title, url, content, date, article;
+        Story storyobj;
+        for(String story : stories.split("<story>"))
+        {
+            System.out.println("------------story-------------");
+            if(story.contains(delim))
+            {
+                title = story.split("<title>")[1].split("</title>")[0];//get text between tags
+                url = story.split("<url>")[1].split("</url>")[0];
+                content = story.split("<content>")[1].split("</content>")[0];
+                date = story.split("<date>")[1].split("</date>")[0];
+                article = story.split("<article>")[1].split("</article>")[0];
+                
+                storyobj = new Story();
+                storyobj.title = title;
+                storyobj.url = url;
+                storyobj.content = content;
+                storyobj.date = date;
+                storyobj.article = article;
+                saved.addStory(storyobj);
+                System.out.println(url);
+            }
+            System.out.println("---------------/story----------");
+        }
+        showfeeds();
+        //System.out.println(links);
+    }
     public void addFeed(String url) throws IOException
     {
-        feeds.add(new RSS(url));
+        System.out.println("Adding feed: " + url);
+        RSS added = new RSS(url);
+        feeds.add(added);
+        System.out.println("Added feed: " + added);
     }
-    public void refreshfeeds()
+    public void refreshfeeds() throws InterruptedException
     {
         mainController.clearFeeds();
+        dispatchFetch();
+        fetchThread.join();
         showfeeds();
     }
     public void showfeed(RSS rss)
@@ -85,6 +145,7 @@ public class Session
         Platform.runLater(() ->
         {
             System.out.println(mainController);
+            //System.out.println("sfeed: " + rss);
             mainController.populateFeed(rss);
         });
     }

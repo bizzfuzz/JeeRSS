@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.web.WebEngine;
@@ -60,6 +61,10 @@ public class FXMLController implements Initializable
     MenuItem addfeed;
     @FXML
     MenuItem savesession;
+    @FXML
+    MenuItem open;
+    @FXML
+    MenuItem quit;
     WebEngine engine;
     Story viewing;
     FeedButton savedstories;
@@ -103,6 +108,11 @@ public class FXMLController implements Initializable
             } 
             catch (IOException ex)
             {
+                setStatus("Error opening feed! >"  + ex.toString());
+                Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (InterruptedException ex)
+            {
                 Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -115,6 +125,26 @@ public class FXMLController implements Initializable
             {
                 Filer filer = new Filer();
                 filer.write(Session.shared.savestring(), file);
+            }
+        });
+        open.setOnAction((ActionEvent e) ->
+        {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Open Session");
+            File file = chooser.showOpenDialog(window);
+            if(file != null)
+            {
+                try 
+                {
+                    Filer filer = new Filer();
+                    String content = filer.content(file);
+                    Session.shared.load(content);
+                }
+                catch (IOException ex) 
+                {
+                    setStatus("Error opening file! > " + ex.toString());
+                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -141,6 +171,7 @@ public class FXMLController implements Initializable
     {
         StoryButton button;
         ObservableList<Node> menu = menuitems.getChildren();
+        //System.out.println("pfeed: " + rss);
         FeedButton head = new FeedButton(rss.title);
         head.setMinWidth(menuitems.getWidth());
         if(rss.savedstory)
@@ -158,6 +189,7 @@ public class FXMLController implements Initializable
             button = new StoryButton(story, this);
             button.getStyleClass().add("storybutton");
             button.setMinWidth(menuscroll.getWidth());
+            button.setTooltip(new Tooltip(story.content));
             story.button = button;
             menu.add(button);
             head.addStory(button);

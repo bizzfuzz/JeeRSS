@@ -54,7 +54,7 @@ public class TextPopup
         field = new TextField();
         items.add(field);
         items.add(button);  
-        Scene scene = new Scene(layout, 300, 50);
+        Scene scene = new Scene(layout, 300, 60);
         window.setScene(scene);
         window.showAndWait();
         return entered();
