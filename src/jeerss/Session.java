@@ -39,7 +39,7 @@ public class Session
     
     public void start()
     {
-        System.out.println("session start");
+        //System.out.println("session start");
         init();
         //urls.add("https://www.gamingonlinux.com/article_rss.php");
         //urls.add("https://www.wired.com/feed/rss");
@@ -128,10 +128,10 @@ public class Session
     }
     public void addFeed(String url) throws IOException
     {
-        System.out.println("Adding feed: " + url);
+        //System.out.println("Adding feed: " + url);
         RSS added = new RSS(url);
         feeds.add(added);
-        System.out.println("Added feed: " + added);
+        //System.out.println("Added feed: " + added);
     }
     public void refreshfeeds() throws InterruptedException
     {
