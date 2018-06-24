@@ -147,6 +147,11 @@ public class FXMLController implements Initializable
                 }
             }
         });
+        quit.setOnAction((ActionEvent e) ->
+        {
+            Platform.exit();
+            System.exit(0);
+        });
     }
     public void saveStory()
     {
